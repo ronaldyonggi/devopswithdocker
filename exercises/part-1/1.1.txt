@@ -1,0 +1,4 @@
+CONTAINER ID   IMAGE               COMMAND                  CREATED              STATUS                      PORTS     NAMES
+4d3ffc58f579   nginx:alpine-slim   "/docker-entrypoint.…"   54 seconds ago       Up 54 seconds               80/tcp    sharp_bassi
+15c0992e6159   nginx:alpine-slim   "/docker-entrypoint.…"   56 seconds ago       Exited (0) 25 seconds ago             lucid_lederberg
+182f293ecfbe   nginx:alpine-slim   "/docker-entrypoint.…"   About a minute ago   Exited (0) 25 seconds ago             focused_jones
