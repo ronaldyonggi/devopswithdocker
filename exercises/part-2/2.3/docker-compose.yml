@@ -1,0 +1,23 @@
+name: frontend-backend
+
+services:
+  backend:
+    image: example-backend
+    build:
+      context: ../../../example-backend
+    environment:
+      - REQUEST_ORIGIN=http://localhost:8080
+    command: ./server
+    ports:
+      - 7070:8080
+    
+
+  frontend:
+    image: example-frontend
+    build:
+      context: ../../../example-frontend
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:7070
+    ports:
+      - 8080:5000
+    command: serve -s -l 5000 build
