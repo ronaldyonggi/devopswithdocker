@@ -4,6 +4,7 @@ services:
   backend:
     image: example-backend
     build:
+      # This assumes that the example-backend directory is present in the location listed below
       context: ../../../example-backend
     environment:
       - REQUEST_ORIGIN=http://localhost:8080
@@ -15,6 +16,7 @@ services:
   frontend:
     image: example-frontend
     build:
+      # This assumes that the example-frontend directory is present in the location listed below
       context: ../../../example-frontend
     environment:
       - REACT_APP_BACKEND_URL=http://localhost:7070
