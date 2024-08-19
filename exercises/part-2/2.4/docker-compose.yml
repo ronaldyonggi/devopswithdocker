@@ -1,0 +1,29 @@
+name: frontend-backend
+
+services:
+  backend:
+    image: example-backend
+    build:
+      # This assumes that the example-backend directory is present in the location listed below
+      context: ../../../example-backend
+    command: ./server
+    environment:
+      - REDIS_HOST=redis
+    ports:
+      - 7070:8080
+    depends_on:
+      - redis
+
+  frontend:
+    image: example-frontend
+    build:
+      # This assumes that the example-frontend directory is present in the location listed below
+      context: ../../../example-frontend
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:7070
+    ports:
+      - 8080:5000
+    command: serve -s -l 5000 build
+
+  redis:
+    image: redis:7-bookworm
