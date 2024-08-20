@@ -1,0 +1,74 @@
+name: frontend-backend
+
+services:
+  backend:
+    image: example-backend
+    build:
+      # This assumes that the example-backend directory is present in the location listed below
+      context: ../../../example-backend
+    command: ./server
+    environment:
+      - REDIS_HOST=redis
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+    ports:
+      - 7070:8080
+    depends_on:
+      - redis
+    container_name: example-backend
+    networks:
+      - frontend-backend
+
+  frontend:
+    image: example-frontend
+    build:
+      # This assumes that the example-frontend directory is present in the location listed below
+      context: ../../../example-frontend
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:7070
+    # ports:
+    #   - 5173:5000
+    command: serve -s -l 5000 build
+    container_name: example-frontend
+    networks:
+      - frontend-backend
+
+  redis:
+    image: redis:7-bookworm
+    container_name: redis
+    networks:
+      - frontend-backend
+
+  db:
+    image: postgres:16-bookworm
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - frontend-backend
+
+  nginx:
+    image: nginx:1.27-bookworm
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    container_name: nginx
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - 8080:80
+    networks:
+      - frontend-backend
+
+
+volumes:
+  postgres_data:
+
+networks:
+  frontend-backend:
+    name: frontend-backend
