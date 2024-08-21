@@ -1,0 +1,7 @@
+example-frontend before optimizing base image: 1.46 GB
+example-backend before optimizing base image: 1.07 GB
+
+example-frontend base image changed to node:16.20.2-bookworm-slim
+example-backend base image changed to golang:1.23-alpine
+
+After optimization, the size of the example-frontend and example-backend images are now 732 MB and 508 MB respectively

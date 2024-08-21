@@ -1,0 +1,4 @@
+example-frontend before optimization: 1.46 GB
+example-backend before optimization: 1.07 GB
+
+After optimizations, the size of the example-frontend and example-backend images are still 1.46 GB and 1.07 GB respectively
